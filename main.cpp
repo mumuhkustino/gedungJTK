@@ -187,7 +187,6 @@ void drawSkybox(float x, float y, float z, float width, float height, float leng
 }
 
 void drawLabKiriKiriGedungLt1(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -228,7 +227,6 @@ void drawLabKiriKiriGedungLt1(float x1, float x2, float y1, float y2, float z1, 
 }
 
 void drawLabKiriKananGedungLt1(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -257,7 +255,6 @@ void drawLabKiriKananGedungLt1(float x1, float x2, float y1, float y2, float z1,
 }
 
 void drawLabKananKananGedungLt1(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -286,7 +283,6 @@ void drawLabKananKananGedungLt1(float x1, float x2, float y1, float y2, float z1
 }
 
 void drawLabKananKiriGedungLt1(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -315,9 +311,6 @@ void drawLabKananKiriGedungLt1(float x1, float x2, float y1, float y2, float z1,
 }
 
 void drawTiang(float x1, float x2, float y1, float y2, float z1, float z2) {
-	
-//	glColor3f(0.89f, 0.831f, 0.761f);
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -408,7 +401,7 @@ void drawTiangJTK() {
 						convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz,
 						convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz);
 		}else {
-			glColor3f(0.89f, 0.831f, 0.761f);
+//			glColor3f(0.89f, 0.831f, 0.761f);
 			glTranslatef((TITIK_X_AWAL+convertToPx((UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
 			glRotatef(-90, 1.0, 0.0, 0.0);
 			glutSolidCylinder(convertToPx(3*PANJANGTIANG), convertToPx(TINGGITIANG), 20, convertToPx(TINGGITIANG));
@@ -489,7 +482,7 @@ void drawTiangJTK() {
 	coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	for(i = 20; i < DERETAN_TIANG_KETIGA-1; i++) {
 		if(i < 23) {
-			glColor3f(0, 0, 1);
+//			glColor3f(0, 0, 1);
 			glTranslatef((TITIK_X_AWAL+convertToPx(26+(UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
 			glRotatef(-90, 1.0, 0.0, 0.0);
 			glutSolidCylinder(convertToPx(2*PANJANGTIANG), convertToPx(TINGGITIANG), 20, convertToPx(TINGGITIANG));
@@ -553,8 +546,8 @@ void drawTiangJTK() {
 						convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i),	// i
 						convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i));	// i
 	
-		drawTiang((TITIK_X_AWAL)+convertToPx(-PANJANGTIANG)+convertToPx(/*15+*/13+(UBIN_ANTAR_TIANG*8)),
-						TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(/*15+*/13+(UBIN_ANTAR_TIANG*8)),
+		drawTiang((TITIK_X_AWAL)+convertToPx(-PANJANGTIANG)+convertToPx(/*15+*/22+(UBIN_ANTAR_TIANG*7)),
+						TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(/*15+*/22+(UBIN_ANTAR_TIANG*7)),
 						convertToPx(0), convertToPx(TINGGITIANG),
 						convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i),
 						convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i));
@@ -565,8 +558,8 @@ void drawTiangJTK() {
 						convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i),
 						convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i));
 						
-		drawTiang(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(/*28+*/26+(UBIN_ANTAR_TIANG*20)),
-						TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(/*28+*/26+(UBIN_ANTAR_TIANG*20)),
+		drawTiang(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(/*28+*/33+(UBIN_ANTAR_TIANG*19)),
+						TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(/*28+*/33+(UBIN_ANTAR_TIANG*19)),
 						convertToPx(0), convertToPx(TINGGITIANG),
 						convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i),
 						convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*i));
@@ -632,7 +625,6 @@ void drawTiangJTK() {
 }
 
 void drawRuanganPggrLabKiriKiri(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -661,7 +653,6 @@ void drawRuanganPggrLabKiriKiri(float x1, float x2, float y1, float y2, float z1
 }
 
 void drawRuanganPggrLabKiriKanan(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -690,7 +681,6 @@ void drawRuanganPggrLabKiriKanan(float x1, float x2, float y1, float y2, float z
 }
 
 void drawRuanganMedKiri(float x1, float x2, float y1, float y2, float z1, float z2) {
-	glColor3f(COLOR1, COLOR2, COLOR3);
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -1300,6 +1290,10 @@ void drawAtapKoridor() {
 }
 
 void drawGedungLt1() {
+	glColor3f(0, 1, 1);
+	drawTiangJTK();
+	glColor3f(1, 0, 2);
+	
 	float coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	drawLabKiriKiriGedungLt1(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1),
 					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6),
@@ -1453,15 +1447,19 @@ void drawGedungLt1() {
 				convertToPx(TITIK_TENGAH_Z),
 				/*convertToPx(-LEBARTIANG)+*/convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(54));
 				
+	drawAtapKoridor();
+				
 }
 
 void drawGedungJTK() {
 	drawSkybox(0, 0, 0, 500, 500, 500);
 	drawGrid();
 	
-	drawTiangJTK();
+//	glColor3f(0.89f, 0.831f, 0.761f);
+//	glColor3f(COLOR1, COLOR2, COLOR3);
+	
 	drawGedungLt1();
-	drawAtapKoridor();
+	
 	
 }
 
@@ -1519,13 +1517,6 @@ void renderScene(void) {
 	gluLookAt(	x, y, z,
 			x+lx, y+ly,  z+lz,
 			0.0f, 1.0f,  0.0f);
-	
-//	LoadTexture("front.bmp", SKYFRONT);
-//	LoadTexture("back.bmp", SKYBACK);
-//	LoadTexture("down.bmp", SKYDOWN);
-//	LoadTexture("up.bmp", SKYUP);
-//	LoadTexture("right.bmp", SKYRIGHT);
-//	LoadTexture("left.bmp", SKYLEFT); 
 
 	drawGedungJTK();
 
@@ -1580,6 +1571,13 @@ int main(int argc, char **argv) {
 	glutInitWindowSize(1024,768);
 	glutCreateWindow("GedungJTK");
 
+//	LoadTexture("front.bmp", SKYFRONT);
+//	LoadTexture("back.bmp", SKYBACK);
+//	LoadTexture("down.bmp", SKYDOWN);
+//	LoadTexture("up.bmp", SKYUP);
+//	LoadTexture("right.bmp", SKYRIGHT);
+//	LoadTexture("left.bmp", SKYLEFT); 
+	
 	// register callbacks
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
