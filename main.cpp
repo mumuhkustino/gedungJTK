@@ -15,6 +15,8 @@
 unsigned int ID[6];
 unsigned int A[ARRTX];
 
+int cx, cy;
+
 // angle of rotation for the camera direction
 float angle = 0.0f;
 
@@ -348,12 +350,11 @@ void drawTiangJTK() {
 						convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz,
 						convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz);
 		}else {
-//			glColor3f(0.89f, 0.831f, 0.761f);
-			glTranslatef((TITIK_X_AWAL+convertToPx((UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
-			glRotatef(-90, 1.0, 0.0, 0.0);
-			glutSolidCylinder(convertToPx(3*PANJANGTIANG), convertToPx(TINGGITIANG)+convertToPx(CORLT), 20, convertToPx(TINGGITIANG));
-			glRotatef(90, 1.0, 0.0, 0.0);
-			glTranslatef(-(TITIK_X_AWAL+convertToPx((UBIN_ANTAR_TIANG*i))), 0.0, -(convertToPx(TITIK_TENGAH_Z)+coorz));
+				glTranslatef((TITIK_X_AWAL+convertToPx((UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
+				glRotatef(-90, 1.0, 0.0, 0.0);
+				glutSolidCylinder(convertToPx(3*PANJANGTIANG), convertToPx(TINGGITIANG)+convertToPx(CORLT), 20, convertToPx(TINGGITIANG));
+				glRotatef(90, 1.0, 0.0, 0.0);
+				glTranslatef(-(TITIK_X_AWAL+convertToPx((UBIN_ANTAR_TIANG*i))), 0.0, -(convertToPx(TITIK_TENGAH_Z)+coorz));
 		}
 	}
 	/*Sekat Lab Kiri*/
@@ -429,12 +430,12 @@ void drawTiangJTK() {
 	coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	for(i = 20; i < DERETAN_TIANG_KETIGA-1; i++) {
 		if(i < 23) {
-//			glColor3f(0, 0, 1);
-			glTranslatef((TITIK_X_AWAL+convertToPx(26+(UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
-			glRotatef(-90, 1.0, 0.0, 0.0);
-			glutSolidCylinder(convertToPx(2*PANJANGTIANG), convertToPx(TINGGITIANG)+convertToPx(CORLT), 20, convertToPx(TINGGITIANG));
-			glRotatef(90, 1.0, 0.0, 0.0);
-			glTranslatef(-(TITIK_X_AWAL+convertToPx(26+(UBIN_ANTAR_TIANG*i))), 0.0, -(convertToPx(TITIK_TENGAH_Z)+coorz));
+				glColor3ub(238,232,170);
+				glTranslatef((TITIK_X_AWAL+convertToPx(26+(UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
+				glRotatef(-90, 1.0, 0.0, 0.0);
+				glutSolidCylinder(convertToPx(2*PANJANGTIANG), convertToPx(TINGGITIANG)+convertToPx(CORLT), 20, convertToPx(TINGGITIANG));
+				glRotatef(90, 1.0, 0.0, 0.0);
+				glTranslatef(-(TITIK_X_AWAL+convertToPx(26+(UBIN_ANTAR_TIANG*i))), 0.0, -(convertToPx(TITIK_TENGAH_Z)+coorz));
 		} else {
 			drawTiang(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+(UBIN_ANTAR_TIANG*i)),
 						TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+(UBIN_ANTAR_TIANG*i)),
@@ -1881,7 +1882,7 @@ void drawGedungLt1() {
 	glColor3ub(238,232,170);
 	
 	drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(2+(UBIN_ANTAR_TIANG*7)),
-					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(33+(UBIN_ANTAR_TIANG*30)),
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(38+(UBIN_ANTAR_TIANG*29)),
 					convertToPx(0),convertToPx(CORLT/2)-convertToPx(0.5),
 					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*4)+convertToPx(1),
 					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*5)-convertToPx(1),
@@ -2086,6 +2087,34 @@ void drawGedungLt1() {
 					convertToPx(CORLT/2), convertToPx(TINGGITIANG)+convertToPx(CORLT),
 					convertToPx(TITIK_TENGAH_Z)-convertToPx(6),
 					convertToPx(TITIK_TENGAH_Z)-convertToPx(6),'1');
+	glColor4f(1,1,1,1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+	
+	glColor4f(1,1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, A[PGRKORIDOR]);
+		drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1)+convertToPx(-10),
+					TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(34+UBIN_ANTAR_TIANG*26),
+					convertToPx(0), convertToPx(CORLT/4),
+					convertToPx(TITIK_TENGAH_Z),
+					convertToPx(TITIK_TENGAH_Z)+convertToPx(10),'H');
+		drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1)+convertToPx(-10),
+					TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(34+UBIN_ANTAR_TIANG*26),
+					convertToPx(0), convertToPx(CORLT/4),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(10),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz,'H');
+		drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1)+convertToPx(-10),
+					TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1),
+					convertToPx(0), convertToPx(CORLT/4),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(10),
+					convertToPx(TITIK_TENGAH_Z),'V');
+		drawJlnKoridor(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*26),
+					TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(34+UBIN_ANTAR_TIANG*26),
+					convertToPx(0), convertToPx(CORLT/4),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(10),
+					convertToPx(TITIK_TENGAH_Z),'V');
+					
 	glColor4f(1,1,1,1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
@@ -2719,48 +2748,70 @@ void drawPintuLt2() {
 	glBindTexture(GL_TEXTURE_2D, A[PINTURUANGAN]);
 	
 		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)-convertToPx(0.1),	//r dosen
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)-convertToPx(0.1),
+					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(2),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(10));
+		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)+convertToPx(0.1),
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)+convertToPx(0.1),
+					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(2),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(10));
+				
+		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)-convertToPx(0.1),	//r dosen
 				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)-convertToPx(0.1),
 				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(2),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(10));
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(12),
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(20));
 		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)+convertToPx(0.1),
 				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)+convertToPx(0.1),
 				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(2),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(10));
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(12),
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(20));
+				
+		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)-convertToPx(0.1),	//r dosen
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)-convertToPx(0.1),
+					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)-convertToPx(6),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)-convertToPx(14));
+		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)+convertToPx(0.1),
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6)+convertToPx(0.1),
+					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)-convertToPx(6),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)-convertToPx(14));
 	
 		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25)-convertToPx(0.1), //mushola
-					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25)-convertToPx(0.1),
-					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(1),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(6));
+				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25)-convertToPx(0.1),
+				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(1),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(6));
 		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25)+convertToPx(0.1),
-					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25)+convertToPx(0.1),
-					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(1),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(6));
+				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25)+convertToPx(0.1),
+				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(1),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)-convertToPx(6));
 					
 		drawTexPgr(TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20)+convertToPx(0.1),	//elib
-				TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20)+convertToPx(0.1),
-				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(5),
-				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(11));
+					TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20)+convertToPx(0.1),
+					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(5),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(11));
 		drawTexPgr(TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20)-convertToPx(0.1),
-				TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20)-convertToPx(0.1),
-				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(5),
-				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(11));
+					TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20)-convertToPx(0.1),
+					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(5),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(11));
 					
 		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20)-convertToPx(0.1),	//pinggir rsg kiri
-					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20)-convertToPx(0.1),
-					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(1),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(6));
+				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20)-convertToPx(0.1),
+				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(1),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(6));
 		drawTexPgr(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20)+convertToPx(0.1),
-					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20)+convertToPx(0.1),
-					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(1),
-					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(6));
+				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20)+convertToPx(0.1),
+				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(1),
+				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz+convertToPx(Z_RUANGAN_DEPAN)-convertToPx(Z_TENGAH_LORONG)+convertToPx(6));
 		drawTexPgr(TITIK_X_AWAL+convertToPx(26+UBIN_ANTAR_TIANG*21)-convertToPx(0.1),	//pinggir rsg kanan
 					TITIK_X_AWAL+convertToPx(26+UBIN_ANTAR_TIANG*21)-convertToPx(0.1),
 					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
@@ -3002,6 +3053,7 @@ void drawPintuLt2() {
 	glDisable(GL_TEXTURE_2D);
 }
 
+
 void drawGedungLt2() {
 	float coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	
@@ -3235,84 +3287,143 @@ void drawGedungLt2() {
 	glBindTexture(GL_TEXTURE_2D, A[JENDELALT2]);
 	for(int i = 1; i < 26; i++) {
 		if(i < 7) {
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
-						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
-						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
-						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
-						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
-		} else if (i > 6 && i < 20) {
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
-						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
-						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
-						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
-			if(i != 18) {
-				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
-							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
-							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
-							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
-				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
-							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
-							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
-							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
-							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
-							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
-			}
-		} else if (i > 19) {
-			if(i != 20) {
-				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
-							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+			if(i != 6) {
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
 							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
 							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
 							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
 							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
-				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
-							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
 							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
 							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
 							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
 							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
 			}
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
+			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
+			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
+		} else if (i > 6 && i < 19) {
+			if(i != 7) {
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
+			} else {
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
+			}
+			if(i != 18) {
+				if(i != 7) {
+					drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+								TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
+					drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+								TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
+				} else {
+					drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+								TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
+					drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*i),
+								TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*(i+1)),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
+				}
+			}
+		} else if (i > 18) {
+			if(i != 19) {
+				if(i != 20) {
+					drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
+								TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
+					drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
+								TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
+								convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
+								convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
+				}
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
 						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
 						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
 						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
 						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
 						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
-			drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*i),
 						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
 						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG/2)+convertToPx(CORLT),
 						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
 						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
 						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
+			} else {
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+							convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT),
+							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),
+							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+convertToPx(0.1),'1');
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+							TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+							convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT),
+							convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),
+							convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)-convertToPx(0.1),'1');
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz-convertToPx(0.1),'1');
+				drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(13+UBIN_ANTAR_TIANG*i),
+						TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*(i+1)),
+						convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT),
+						convertToPx(TINGGITIANG)+convertToPx(TINGGITIANG)+convertToPx(2*CORLT),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),
+						convertToPx(TITIK_TENGAH_Z)+convertToPx(-LEBARTIANG)+coorz+convertToPx(0.1),'1');
+			}
 		}
 	}
 	glColor4f(1,1,1,1);
@@ -3912,9 +4023,18 @@ void renderScene(void) {
 		computePos(deltaMove);
 	if (deltaAngle)
 		computeDir(deltaAngle);
+		
+	GLfloat lightPosition[] = {10.0f, 10.0f, 20.0f, 0.0f};//
+	
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glClearColor(0.0f, 1.0f, 10.0f, 0.0f);//
+	lightPosition[1] = cx;//
+	lightPosition[0] = cy;//
+
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
@@ -3922,6 +4042,8 @@ void renderScene(void) {
 			x+lx, y+ly,  z+lz,
 			0.0f, 1.0f,  0.0f);
 	drawGedungJTK();
+	
+	glDisable(GL_COLOR_MATERIAL);//
 	
 	glutSwapBuffers();
 }
@@ -3949,19 +4071,31 @@ void pressKey(int key, int xx, int yy) {
              case GLUT_KEY_F4 : (tiang ? tiang=false: tiang=true ); break;
        }
 }
-
+//// edit kaca yang ada di lebar pintu
 void releaseKey(int key, int x, int y) { 	
 
         switch (key) {
              case GLUT_KEY_LEFT :
 			 case GLUT_KEY_RIGHT : deltaAngle = 0.0f;break;
 			 case GLUT_KEY_UP :
-             case GLUT_KEY_DOWN : deltaMove = 0;break;
+             case GLUT_KEY_DOWN : deltaMove = 0.0f;break;
         }
 } 
 
 void initGL() {
+	GLfloat lightPosition[] = {10.0f, 10.0f, 20.0f, 0.0f};//
+	GLfloat lightAmbient[] = {0.0f, 1.0f, 0.0f, 1.0f};//
+	GLfloat lightDiffuse[] = {0.7f, 0.7f, 0.7f, 1.0f};//
+	GLfloat lightSpecular[] = {0.5f, 0.5f, 0.5f, 1.0f};//
+	GLfloat shine[] = {80};//
+	
+	glShadeModel(GL_SMOOTH);//
+	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);//
 	glEnable(GL_DEPTH_TEST);
+	
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);//
+	glMaterialfv(GL_FRONT, GL_SPECULAR, lightSpecular);//
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);//
 //	GLfloat ambientLight[] = {0.5f, 0.5f, 0.5f, 1.0f};
 //	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 //	GLfloat lightPosition[] = {20.8f, 20.8f, 20.8f, 21.0f};
@@ -3972,12 +4106,13 @@ void initGL() {
 //	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
 //	GLfloat specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
 //	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-//	glEnable(GL_LIGHTING);
-//	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);//
+	glEnable(GL_LIGHT0);//
+	
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_COLOR_MATERIAL);
     glDepthFunc(GL_LEQUAL);
-    glShadeModel(GL_SMOOTH);
+//    glShadeModel(GL_SMOOTH);
     
     LoadTexture("front.bmp", SKYFRONT);
 	LoadTexture("back.bmp", SKYBACK);
