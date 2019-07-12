@@ -14,8 +14,9 @@
 #define PGRKORIDOR 6
 #define TERASKORIDOR 7
 #define PINTURUANGAN 8
+#define RUMPUT 9
 
-#define ARRTX 9
+#define ARRTX 10
 
 #define UBINPIXEL 0.5
 #define FPS 120

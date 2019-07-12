@@ -44,7 +44,6 @@ void LoadTexture(const char* filename, int index) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, bl.iWidth, bl.iHeight, GL_RGB, GL_UNSIGNED_BYTE, bl.textureData);
-	glShadeModel(GL_SMOOTH);
 }
 
 void LoadTextureA(const char* filename, int index) {
@@ -59,7 +58,6 @@ void LoadTextureA(const char* filename, int index) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, bl.iWidth, bl.iHeight, GL_RGB, GL_UNSIGNED_BYTE, bl.textureData);
-	glShadeModel(GL_SMOOTH);
 }
 
 float convertToPx(float value) {
@@ -430,7 +428,7 @@ void drawTiangJTK() {
 	coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	for(i = 20; i < DERETAN_TIANG_KETIGA-1; i++) {
 		if(i < 23) {
-				glColor3ub(238,232,170);
+				glColor3ub(222,184,135);
 				glTranslatef((TITIK_X_AWAL+convertToPx(26+(UBIN_ANTAR_TIANG*i))), 0.0, (convertToPx(TITIK_TENGAH_Z)+coorz));
 				glRotatef(-90, 1.0, 0.0, 0.0);
 				glutSolidCylinder(convertToPx(2*PANJANGTIANG), convertToPx(TINGGITIANG)+convertToPx(CORLT), 20, convertToPx(TINGGITIANG));
@@ -799,34 +797,6 @@ void drawLabTengah(float x1, float x2, float y1, float y2, float z1, float z2) {
 }
 
 void drawDepanLabTengah(float x1, float x2, float y1, float y2, float z1, float z2) {
-	//Front
-	glBegin(GL_QUADS);	
-		glVertex3f(x1, y1, z2);
-		glVertex3f(x2, y1, z2);
-		glVertex3f(x2, y2, z2); 
-		glVertex3f(x1, y2, z2);
-	
-	//Back
-		glVertex3f(x1, y1, z1);
-		glVertex3f(x1, y2, z1);
-		glVertex3f(x2, y2, z1); 
-		glVertex3f(x2, y1, z1);
-	
-	//Left
-		glVertex3f(x1, y1, z2);
-		glVertex3f(x1, y2, z2);
-		glVertex3f(x1, y2, z1); 
-		glVertex3f(x1, y1, z1);
-	
-	//Right
-		glVertex3f(x2, y1, z1);
-		glVertex3f(x2, y2, z1);
-		glVertex3f(x2, y2, z2); 
-		glVertex3f(x2, y1, z2);
-	glEnd();
-}
-
-void drawPinggirLabTengah(float x1, float x2, float y1, float y2, float z1, float z2) {
 	//Front
 	glBegin(GL_QUADS);	
 		glVertex3f(x1, y1, z2);
@@ -1279,7 +1249,7 @@ void drawLantai(float x1, float x2, float y1, float y2, float z1, float z2, char
 			glVertex3f(x2, y1, z2);
 		glEnd();
 	} else if(action == '3'){
-		glColor3ub(238,232,170);
+		glColor3ub(222,184,135);
 		//Front
 		glBegin(GL_QUADS);	
 			glVertex3f(x1, y1, z2);
@@ -1318,21 +1288,26 @@ void drawLantai(float x1, float x2, float y1, float y2, float z1, float z2, char
 		glColor4f(1,1,1,1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glDisable(GL_TEXTURE_2D);
-//		glColor3f(0.0f,0.0f,0.0f);
-		glColor3ub(238,232,170);
+
+		glEnable(GL_TEXTURE_2D);
+		glColor4f(1,1,1,1);
+		glBindTexture(GL_TEXTURE_2D, A[ATAPLT1]);
 		glBegin(GL_QUADS);
 		//Down
-			glVertex3f(x1, y1, z2);
-			glVertex3f(x1, y1, z1);
-			glVertex3f(x2, y1, z1); 
-			glVertex3f(x2, y1, z2);
+			glTexCoord2f(50.0, 0.0);glVertex3f(x1, y1, z2);
+			glTexCoord2f(50.0, 20.0);glVertex3f(x1, y1, z1);
+			glTexCoord2f(0.0, 20.0);glVertex3f(x2, y1, z1); 
+			glTexCoord2f(0.0, 0.0);glVertex3f(x2, y1, z2);
 		glEnd();
+		glColor4f(1,1,1,1);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisable(GL_TEXTURE_2D);
 	}
 }
 
 void drawLantai2(float x1, float x2, float y1, float y2, float z1, float z2, char action) {
 	if(action == 'D') {
-		glColor3ub(238,232,170);
+		glColor3ub(222,184,135);
 		//Front
 		glBegin(GL_QUADS);	
 			glVertex3f(x1, y1, z2);
@@ -1383,7 +1358,7 @@ void drawLantai2(float x1, float x2, float y1, float y2, float z1, float z2, cha
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glDisable(GL_TEXTURE_2D);
 	} else {
-		glColor3ub(238,232,170);
+		glColor3ub(222,184,135);
 		//Front
 		glBegin(GL_QUADS);	
 			glVertex3f(x1, y1, z2);
@@ -1419,7 +1394,7 @@ void drawLantai2(float x1, float x2, float y1, float y2, float z1, float z2, cha
 		glColor4f(1,1,1,1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glDisable(GL_TEXTURE_2D);
-		glColor3ub(238,232,170);
+		glColor3ub(222,184,135);
 		glBegin(GL_QUADS);
 		//Down
 			glVertex3f(x1, y1, z2);
@@ -1428,6 +1403,84 @@ void drawLantai2(float x1, float x2, float y1, float y2, float z1, float z2, cha
 			glVertex3f(x2, y1, z2);
 		glEnd();
 	}
+}
+
+void drawTaman(float x1, float x2, float y1, float y2, float z1, float z2) {
+	glColor4f(1,1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, A[PGRKORIDOR]);
+	glBegin(GL_QUADS);
+	//Front
+	glBegin(GL_QUADS);	
+		glTexCoord2f(0.0, 0.0);glVertex3f(x1, y1, z2);
+		glTexCoord2f(50.0, 0.0);glVertex3f(x2, y1, z2);
+		glTexCoord2f(50.0, 1.0);glVertex3f(x2, y2, z2); 
+		glTexCoord2f(0.0, 1.0);glVertex3f(x1, y2, z2);
+	glEnd();
+	glColor4f(1,1,1,1);
+	glBindTexture(GL_TEXTURE_2D,0);
+	glDisable(GL_TEXTURE_2D);
+	
+	glColor4f(1,1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, A[PGRKORIDOR]);
+	glBegin(GL_QUADS);
+	//Back
+		glTexCoord2f(50.0, 0.0);glVertex3f(x1, y1, z1);
+		glTexCoord2f(50.0, 1.0);glVertex3f(x1, y2, z1);
+		glTexCoord2f(0.0, 1.0);glVertex3f(x2, y2, z1); 
+		glTexCoord2f(0.0, 0.0);glVertex3f(x2, y1, z1);
+	glEnd();
+	glColor4f(1,1,1,1);
+	glBindTexture(GL_TEXTURE_2D,0);
+	glDisable(GL_TEXTURE_2D);
+	
+	glColor4f(1,1,1,1);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, A[PGRKORIDOR]);
+	glBegin(GL_QUADS);
+	//Left
+		glTexCoord2f(5.0, 0.0);glVertex3f(x1, y1, z2);
+		glTexCoord2f(5.0, 1.0);glVertex3f(x1, y2, z2);
+		glTexCoord2f(0.0, 1.0);glVertex3f(x1, y2, z1); 
+		glTexCoord2f(0.0, 0.0);glVertex3f(x1, y1, z1);
+	glEnd();
+	glColor4f(1,1,1,1);
+	glBindTexture(GL_TEXTURE_2D,0);
+	glDisable(GL_TEXTURE_2D);
+	
+	glEnable(GL_TEXTURE_2D);
+  	glBindTexture(GL_TEXTURE_2D, A[PGRKORIDOR]);
+	glBegin(GL_QUADS);
+	//Right
+		glTexCoord2f(5.0, 0.0);glVertex3f(x2, y1, z1);
+		glTexCoord2f(5.0, 1.0);glVertex3f(x2, y2, z1);
+		glTexCoord2f(0.0, 1.0);glVertex3f(x2, y2, z2); 
+		glTexCoord2f(0.0, 0.0);glVertex3f(x2, y1, z2);
+	glEnd();
+	glColor4f(1,1,1,1);
+	glBindTexture(GL_TEXTURE_2D,0);
+	glDisable(GL_TEXTURE_2D);
+		
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, A[RUMPUT]);
+	glBegin(GL_QUADS);
+	//Up
+		glTexCoord2f(0.0, 0.0);glVertex3f(x1, y2, z2);
+		glTexCoord2f(10.0, 0.0);glVertex3f(x2, y2, z2);
+		glTexCoord2f(10.0, 10.0);glVertex3f(x2, y2, z1); 
+		glTexCoord2f(0.0, 10.0);glVertex3f(x1, y2, z1);
+	glEnd();
+	glColor4f(1,1,1,1);
+	glBindTexture(GL_TEXTURE_2D,0);
+	glDisable(GL_TEXTURE_2D);
+	glBegin(GL_QUADS);
+	//Down
+		glVertex3f(x1, y1, z2);
+		glVertex3f(x1, y1, z1);
+		glVertex3f(x2, y1, z1); 
+		glVertex3f(x2, y1, z2);
+	glEnd();
 }
 
 void drawJlnKoridor(float x1, float x2, float y1, float y2, float z1, float z2, char action) {
@@ -1879,7 +1932,7 @@ void drawGedungLt1() {
 					convertToPx(0), convertToPx(CORLT/2),
 					convertToPx(TITIK_TENGAH_Z),
 					convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG), '1');
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	
 	drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(2+(UBIN_ANTAR_TIANG*7)),
 					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(38+(UBIN_ANTAR_TIANG*29)),
@@ -1907,7 +1960,7 @@ void drawGedungLt1() {
 					'V');
 	drawPintuLt1();
 					
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	drawLabKiriKiriGedungLt1(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1),
 					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6),
 					convertToPx(CORLT/2), convertToPx(TINGGITIANG)+convertToPx(CORLT),
@@ -1948,7 +2001,7 @@ void drawGedungLt1() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	drawRuanganPggrLabKiriKanan(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6),
 					TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*7),
 					convertToPx(CORLT/2), convertToPx(TINGGITIANG)+convertToPx(CORLT),
@@ -2050,7 +2103,7 @@ void drawGedungLt1() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	drawRuangDekatMushola(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20),
 				TITIK_X_AWAL+convertToPx(26+UBIN_ANTAR_TIANG*21),
 				convertToPx(CORLT/2), convertToPx(TINGGITIANG)+convertToPx(CORLT),
@@ -2849,13 +2902,13 @@ void drawPintuLt2() {
 		drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(5+UBIN_ANTAR_TIANG*8),
 				TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(11+UBIN_ANTAR_TIANG*8),
 				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(0.1)+convertToPx(0.1),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(0.1)+convertToPx(0.1), '1');
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(0.1),
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(0.1), '1');
 		drawTexDpn(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(5+UBIN_ANTAR_TIANG*8),
 				TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(11+UBIN_ANTAR_TIANG*8),
 				convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(0.1)-convertToPx(0.1),
-				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)+convertToPx(0.1)-convertToPx(0.1), '1');
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)-convertToPx(0.1),
+				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)+convertToPx(Z_RUANGAN_BLKG)-convertToPx(0.1), '1');
 		drawTexDpn(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(2+UBIN_ANTAR_TIANG*19),//wc lelaki lt2
 					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(8+UBIN_ANTAR_TIANG*19),
 					convertToPx(TINGGITIANG)+convertToPx(1.5*CORLT), convertToPx(2*TINGGITIANG),
@@ -3057,7 +3110,7 @@ void drawPintuLt2() {
 void drawGedungLt2() {
 	float coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	
 	drawLantai2(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*1),
 					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*26),
@@ -3098,7 +3151,7 @@ void drawGedungLt2() {
 	
 	drawPintuLt2();
 	
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	
 	coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG);
 	
@@ -3191,7 +3244,7 @@ void drawGedungLt2() {
 	glColor4f(1,1,1,1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	
 	drawWCLelakiLt2(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*19),
 				TITIK_X_AWAL+convertToPx(UBIN_ANTAR_TIANG*20),
@@ -3243,7 +3296,7 @@ void drawGedungLt2() {
 				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz,
 				convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+coorz,'0');
 	
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	drawRuangMushola(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*25),
 				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*26),
 				convertToPx(TINGGITIANG)+convertToPx(CORLT)+convertToPx(CORLT/2), convertToPx(2*TINGGITIANG)+convertToPx(2*CORLT),
@@ -3274,7 +3327,7 @@ void drawGedungLt2() {
 	glColor4f(1,1,1,1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	
 	drawRuangPgrRSG(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20),
 				TITIK_X_AWAL+convertToPx(26+UBIN_ANTAR_TIANG*21),
@@ -3433,7 +3486,7 @@ void drawGedungLt2() {
 }
 
 void drawTembokTangga(float x1, float x2, float y1, float y2, float z1, float z2, char action) {
-	if(action == 'L') {
+	if(action == 'L') {//lurus
 		//Front
 		glBegin(GL_QUADS);	
 			glVertex3f(x1, y1, z2);
@@ -3471,7 +3524,7 @@ void drawTembokTangga(float x1, float x2, float y1, float y2, float z1, float z2
 			glVertex3f(x2, y1, z1); 
 			glVertex3f(x2, y1, z2);
 		glEnd();
-	} else if(action == 'M') {
+	} else if(action == 'M') { //miring
 		//Front
 		glBegin(GL_QUADS);
 			glVertex3f(x1, y1, z2);
@@ -3499,7 +3552,7 @@ void drawTembokTangga(float x1, float x2, float y1, float y2, float z1, float z2
 			glVertex3f(x2, y1, z1); 
 			glVertex3f(x2, y1, z2);
 		glEnd();
-	} else if (action == 'T') {
+	} else if (action == 'T') { //teras tengah tengah anak tangga
 		//Front
 		glBegin(GL_QUADS);	
 			glVertex3f(x1, y1, z2);
@@ -3544,7 +3597,7 @@ void drawTembokTangga(float x1, float x2, float y1, float y2, float z1, float z2
 		glBindTexture(GL_TEXTURE_2D,0);
 		glDisable(GL_TEXTURE_2D);
 		glColor3ub(160,82,45);
-	} else {
+	} else {	//tutup atas miring
 		//Front
 		glBegin(GL_QUADS);
 			glVertex3f(x1, y1, z2);
@@ -3670,8 +3723,22 @@ void drawTanggaUtara(float x1, float x2, float y1, float y2, float z1, float z2)
 void drawTangga() {
 	float y = 0, ty = (TINGGITIANG+CORLT)/ANAK_TANGGA, z = 10, tz = (TINGGITIANG+2*CORLT)/ANAK_TANGGA;
 	
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	//KANAN
+	drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(15+(UBIN_ANTAR_TIANG*20)),
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(20+(UBIN_ANTAR_TIANG*22)),
+					convertToPx(0),convertToPx(CORLT/4),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*0),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*4)+convertToPx(1),
+					'V');
+	
+	drawTaman(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(10+(UBIN_ANTAR_TIANG*8)),
+			TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(13+(UBIN_ANTAR_TIANG*19)),
+			convertToPx(0),convertToPx(CORLT/4),
+			convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*0.8),
+			convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*4)-convertToPx(1));
+		
+	glColor3ub(222,184,135);
 	drawTembokTangga(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20),	//KIRI
 				TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*20),
 				convertToPx(0), convertToPx(TINGGITIANG)+convertToPx(CORLT)+convertToPx(CORLT/2),
@@ -3711,7 +3778,7 @@ void drawTangga() {
 				convertToPx(y)+convertToPx(ty*(25-i)), convertToPx(y)+convertToPx(ty*(26-i)), 
 				convertToPx(z)+convertToPx(tz*(i)), convertToPx(z)+convertToPx(tz*(i+1)));
 	}
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	drawTembokTangga(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*21),	//KANAN
 				TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+UBIN_ANTAR_TIANG*21),
 				convertToPx(TINGGITIANG)+convertToPx(CORLT)+convertToPx(CORLT/2), 
@@ -3744,7 +3811,19 @@ void drawTangga() {
 				convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(40),'A');
 	
 	//KIRI
-	glColor3ub(238,232,170);
+	drawJlnKoridor(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(2+(UBIN_ANTAR_TIANG*5)),
+					TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(6+(UBIN_ANTAR_TIANG*7)),
+					convertToPx(0),convertToPx(CORLT/4),
+					convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*0),
+					convertToPx(LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*2)+convertToPx(1),
+					'V');
+	drawTaman(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(26+(UBIN_ANTAR_TIANG*22)),
+			TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(26+(UBIN_ANTAR_TIANG*26)),
+			convertToPx(0),convertToPx(CORLT/4),
+			convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*0.8),
+			convertToPx(-LEBARTIANG)+convertToPx(TITIK_TENGAH_Z)+convertToPx(JARAK_TIANG_KORIDOR*4)-convertToPx(1));
+					
+	glColor3ub(222,184,135);
 	drawTembokTangga(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*7),
 				TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*7),
 				convertToPx(0), convertToPx(TINGGITIANG)+convertToPx(CORLT)+convertToPx(CORLT/2),
@@ -3784,7 +3863,7 @@ void drawTangga() {
 				convertToPx(y)+convertToPx(ty*(25-i)), convertToPx(y)+convertToPx(ty*(26-i)), 
 				convertToPx(z)+convertToPx(tz*(i)), convertToPx(z)+convertToPx(tz*(i+1)));
 	}
-	glColor3ub(238,232,170);
+	glColor3ub(222,184,135);
 	drawTembokTangga(TITIK_X_AWAL+convertToPx(-PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6),
 				TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*6),
 				convertToPx(TINGGITIANG)+convertToPx(CORLT)+convertToPx(CORLT/2), 
@@ -3817,35 +3896,15 @@ void drawTangga() {
 }
 
 void drawAtapGedungHorizontal(float x1, float x2, float y1, float y2, float z1, float z2, float p1, float p2){
- 	const float mid = (x1+p1)/2;
- 	const float trapW = p2-2*(x2-x1);
- 	const float trapN = p1-2*(x2-x1);
 	glBegin(GL_QUADS);
-//	 	glTexCoord2f(1.0f, 0.0f);
-//		glVertex3f(x1, y1, z2);
-//		glTexCoord2f(0.0f, 0.0f);
-//		glVertex3f(x2, y1, z2);
-//		glTexCoord2f(0.0f, 1.0f);
-//		glVertex3f(x2, y2, z2); 
-//		glTexCoord2f(1.0f, 1.0f);
-//		glVertex3f(x1, y2, z2);
-		
 		glTexCoord2f(10.0f, 0.0f);
-//		glTexCoord4f(p2, 0.0f, 0.0f, p2);
 	  	glVertex3f(x1, y1, z1);
-//		glVertex3f(mid - trapN/2, y1, z1);
 	  	glTexCoord2f(10.0f, 1.0f);
-//		glTexCoord4f(p2, p2, 0.0f, p2);
 	  	glVertex3f(x2, y2, z2);
-//		glVertex3f(mid + trapN/2, y2, z2);
 	  	glTexCoord2f(0.0f, 1.0f);
-//		glTexCoord4f(0.0f, p1, 0.0f, p1);
 	  	glVertex3f(x2+p2, y2, z2);
-//		glVertex3f(mid + trapW/2, y2, z2);
 	  	glTexCoord2f(0.0f, 0.0f);
-//		glTexCoord4f(0.0f, 0.0f, 0.0f, p1);
 		glVertex3f(x1+p1, y1, z1);
-//		glVertex3f(mid+trapN/2, y1, z1);
 	glEnd();
 }
 
@@ -3877,14 +3936,14 @@ void drawAtapJTK() {
 	
 	float coorz = convertToPx(TITIK_TENGAH_Z) - convertToPx(LEBAR_GEDUNG) + convertToPx(Z_TENGAH_LORONG);
 	
-	glColor3f(238,232,170);
+	glColor3ub(222,184,135);
 	drawLantai(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(2+UBIN_ANTAR_TIANG*0),
 					TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(32+UBIN_ANTAR_TIANG*26),
 					convertToPx(2*TINGGITIANG)+convertToPx(2*CORLT), convertToPx(2*TINGGITIANG)+convertToPx(3*CORLT)-convertToPx(0.1),
 					convertToPx(TITIK_TENGAH_Z)+convertToPx(6),
 					convertToPx(TITIK_TENGAH_Z)+coorz-convertToPx(Z_TENGAH_LORONG)-convertToPx(8), '3');
 					
-	glColor3f(238,232,170);
+	glColor3f(222,184,135);
 	drawLangitLangit(TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(UBIN_ANTAR_TIANG*0),
 						TITIK_X_AWAL+convertToPx(PANJANGTIANG)+convertToPx(34+UBIN_ANTAR_TIANG*26),
 						convertToPx(2*TINGGITIANG)+convertToPx(3*CORLT),convertToPx(2*TINGGITIANG)+convertToPx(2+3*CORLT),
@@ -3959,15 +4018,15 @@ void drawAtapJTK() {
 
 void drawGedungJTK() {
 
-	drawSkybox(0, 0, 75, 350, 350, 275);
-	drawGrid();
+	drawSkybox(0, 0, 0-75, 350, 350, 275+200);
+//	drawGrid();
 	
 	if(tiang) {
-		glColor3ub(238,232,170);
+		glColor3ub(222,184,135);
 		drawTiangJTK();
 	}
 	if(lt1) {
-		glColor3ub(238,232,170);
+		glColor3ub(222,184,135);
 		drawGedungLt1();
 	}
 	if(lt2) {
@@ -4024,16 +4083,31 @@ void renderScene(void) {
 	if (deltaAngle)
 		computeDir(deltaAngle);
 		
-	GLfloat lightPosition[] = {10.0f, 10.0f, 20.0f, 0.0f};//
-	
+//	glMatrixMode(GL_MODELVIEW);//
+//		GLfloat lightPosition[] = {10.0f, 0.5f, 10.0f, 0.0f};//
+//		GLfloat lightDirection[] = {1.0, 0.0, 0.0};
+//		GLfloat lightAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};//
+//		GLfloat lightSpecular[] = {1.0f, 1.0f, 1.0f, 1.0f};//
+//		GLfloat shine[] = {10};//
+//		
+//	glClearColor(0.0, 0.0, 0.0, 0.0);//
+//	glShadeModel(GL_SMOOTH);//
+//	
+//	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, lightSpecular);//
+//	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shine);//
+//	glLightfv(GL_LIGHT1, GL_POSITION, lightPosition);//
+//	
+//	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightAmbient);//
+//	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 90.0);//
+//	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, lightDirection);//
+//	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);//
+//	
+//	
+//	glEnable(GL_LIGHTING);//
+//	glEnable(GL_LIGHT1);//
+
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glClearColor(0.0f, 1.0f, 10.0f, 0.0f);//
-	lightPosition[1] = cx;//
-	lightPosition[0] = cy;//
-
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
 	// Reset transformations
 	glLoadIdentity();
@@ -4059,8 +4133,8 @@ void pressKey(int key, int xx, int yy) {
        switch (key) {
        		 case GLUT_KEY_LEFT : deltaAngle = -0.01f; break;
 			 case GLUT_KEY_RIGHT : deltaAngle = 0.01f; break;
-             case GLUT_KEY_UP : deltaMove = 0.5f; break;
-             case GLUT_KEY_DOWN : deltaMove = -0.5f; break;
+             case GLUT_KEY_UP : deltaMove = 1.5f; break;
+             case GLUT_KEY_DOWN : deltaMove = -1.5f; break;
              case GLUT_KEY_PAGE_UP : ly += 0.25f; break;
              case GLUT_KEY_PAGE_DOWN : ly -= 0.25f; break;
              case GLUT_KEY_HOME : y += 1.0f; break;
@@ -4071,7 +4145,7 @@ void pressKey(int key, int xx, int yy) {
              case GLUT_KEY_F4 : (tiang ? tiang=false: tiang=true ); break;
        }
 }
-//// edit kaca yang ada di lebar pintu
+
 void releaseKey(int key, int x, int y) { 	
 
         switch (key) {
@@ -4083,37 +4157,12 @@ void releaseKey(int key, int x, int y) {
 } 
 
 void initGL() {
-	GLfloat lightPosition[] = {10.0f, 10.0f, 20.0f, 0.0f};//
-	GLfloat lightAmbient[] = {0.0f, 1.0f, 0.0f, 1.0f};//
-	GLfloat lightDiffuse[] = {0.7f, 0.7f, 0.7f, 1.0f};//
-	GLfloat lightSpecular[] = {0.5f, 0.5f, 0.5f, 1.0f};//
-	GLfloat shine[] = {80};//
-	
-	glShadeModel(GL_SMOOTH);//
-	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);//
 	glEnable(GL_DEPTH_TEST);
-	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);//
-	glMaterialfv(GL_FRONT, GL_SPECULAR, lightSpecular);//
-	glMaterialfv(GL_FRONT, GL_SHININESS, shine);//
-//	GLfloat ambientLight[] = {0.5f, 0.5f, 0.5f, 1.0f};
-//	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
-//	GLfloat lightPosition[] = {20.8f, 20.8f, 20.8f, 21.0f};
-//	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-//	GLfloat lightAmbient[] = {20.8f, 20.8f, 20.8f, 21.0f};
-//	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightAmbient);
-//	GLfloat lightColor[] = {0.8f, 0.8f, 0.8f, 1.0f};
-//	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
-//	GLfloat specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
-//	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-	glEnable(GL_LIGHTING);//
-	glEnable(GL_LIGHT0);//
 	
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_COLOR_MATERIAL);
     glDepthFunc(GL_LEQUAL);
-//    glShadeModel(GL_SMOOTH);
-    
+      
     LoadTexture("front.bmp", SKYFRONT);
 	LoadTexture("back.bmp", SKYBACK);
 	LoadTexture("down.bmp", SKYDOWN);
@@ -4129,6 +4178,7 @@ void initGL() {
 	LoadTextureA("pgrkoridor.bmp", PGRKORIDOR);
 	LoadTextureA("teraskoridor.bmp", TERASKORIDOR);
 	LoadTextureA("pintu_kelas.bmp", PINTURUANGAN);
+	LoadTextureA("rumput.bmp", RUMPUT);
 }
 
 void timer(int) {
